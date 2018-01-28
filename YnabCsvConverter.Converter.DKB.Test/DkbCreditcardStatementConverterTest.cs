@@ -38,7 +38,7 @@ namespace YnabCsvConverter.Converter.Test
         public void StatementConverted()
         {
             var statement = new List<string>();
-            statement.Add("\"Ja\";\"22.07.2017\";\"21.07.2017\";\"HabenzinsenZ 000000618 T 029   0000\";\"33,34\";\"\";");
+            statement.Add("\"Ja\";\"22.07.2017\";\"21.07.2017\";\"HabenzinsenZ 123456789 T 029   0000\";\"12,34\";\"\";");
             var date = DateTime.Parse("20.07.2017");
             var target = new DkbCreditcardStatementConverter();
             target.LoadStatements(statement.AsEnumerable());
@@ -48,8 +48,8 @@ namespace YnabCsvConverter.Converter.Test
             Assert.NotNull(actual);
             Assert.Equal("",actual.Category);
             Assert.Equal(DateTime.Parse("21.07.2017"), actual.Date);
-            Assert.InRange(actual.Inflow,33.3400, 33.3401 );
-            Assert.Equal("Converted! Original: HabenzinsenZ 000000618 T 029   0000", actual.Memo);
+            Assert.Equal(actual.Inflow,12.34f );
+            Assert.Equal("Converted! Original: HabenzinsenZ 123456789 T 029   0000", actual.Memo);
             Assert.Equal(0.0, actual.Outflow);
             Assert.Equal("", actual.Payee);
          }
@@ -57,7 +57,7 @@ namespace YnabCsvConverter.Converter.Test
         public void TimeFilterWorks()
         {
             var statement = new List<string>();
-            statement.Add("\"Ja\";\"22.07.2017\";\"21.07.2017\";\"HabenzinsenZ 000000618 T 029   0000\";\"33,34\";\"\";");
+            statement.Add("\"Ja\";\"22.07.2017\";\"21.07.2017\";\"HabenzinsenZ 1234567890 T 029   0000\";\"12,34\";\"\";");
             
             var target = new DkbCreditcardStatementConverter();
             target.LoadStatements(statement.AsEnumerable());
@@ -100,10 +100,10 @@ namespace YnabCsvConverter.Converter.Test
             Assert.Equal(0f, target.GetConfidence());
         }
         [Fact]
-        public void ConfidenceIsHUndred()
+        public void ConfidenceIsHundred()
         {
             var statement = new List<string>();
-            statement.Add("\"Ja\";\"22.07.2017\";\"21.07.2017\";\"HabenzinsenZ 000000618 T 029   0000\";\"33,34\";\"\";");
+            statement.Add("\"Ja\";\"22.07.2017\";\"21.07.2017\";\"HabenzinsenZ 123456789 T 029   0000\";\"12,34\";\"\";");
             var target = new DkbCreditcardStatementConverter();
             target.LoadStatements(statement);
             Assert.Equal(100f, target.GetConfidence());

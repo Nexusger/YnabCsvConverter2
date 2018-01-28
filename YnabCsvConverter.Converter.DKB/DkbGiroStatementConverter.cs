@@ -34,7 +34,7 @@ namespace YnabCsvConverter.Converter.DKB
             {
                 Debug.WriteLine("Problem in creating ynabstatement");
             }
-            var payee = fields[3];
+            var payee = fields[3].Replace(",","");
             var category = "";
 
             var memo = $"Converted! {fields[2]} From {fields[3]} {fields[4]}";

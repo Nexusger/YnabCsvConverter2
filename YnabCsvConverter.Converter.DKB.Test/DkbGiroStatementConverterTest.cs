@@ -52,7 +52,7 @@ namespace YnabCsvConverter.Converter.Test
         public void StatementConverted()
         {
             var statement = new List<string>();
-            statement.Add("\"22.07.2017\";\"21.07.2017\";\"Lastschrift\";\"DB Vertrieb GmbH\";\"Fahrschein Q64P6BFahrschein 2B1EUH\";\"DE02100100100152517108\";\"PBNKDEFFXXX\";\"-153,40\";\"DE39DBV00000002177    \";\"1100119479210010      \";\"\";");
+            statement.Add("\"22.07.2017\";\"21.07.2017\";\"Lastschrift\";\"DB Vertrieb GmbH\";\"Fahrschein 1234567890\";\"DE1234567890\";\"PBNKDEFFXXX\";\"-153,40\";\"DE1234567890    \";\"1234567890      \";\"\";");
             var date = DateTime.Parse("20.07.2017");
             var target = new DkbGiroStatementConverter();
             target.LoadStatements(statement.AsEnumerable());
@@ -63,7 +63,7 @@ namespace YnabCsvConverter.Converter.Test
             Assert.Equal("", actual.Category);
             Assert.Equal(DateTime.Parse("21.07.2017"), actual.Date);
             Assert.InRange(actual.Outflow, 153.3999, 153.4001);
-            Assert.Equal("Converted! Lastschrift From DB Vertrieb GmbH Fahrschein Q64P6BFahrschein 2B1EUH", actual.Memo);
+            Assert.Equal("Converted! Lastschrift From DB Vertrieb GmbH Fahrschein 1234567890", actual.Memo);
             Assert.Equal(0.0, actual.Inflow);
             Assert.Equal("DB Vertrieb GmbH", actual.Payee);
         }
@@ -72,7 +72,7 @@ namespace YnabCsvConverter.Converter.Test
         public void TimeFilterWorks()
         {
             var statement = new List<string>();
-            statement.Add("\"22.07.2017\";\"21.07.2017\";\"Lastschrift\";\"DB Vertrieb GmbH\";\"Fahrschein Q64P6BFahrschein 2B1EUH\";\"DE02100100100152517108\";\"PBNKDEFFXXX\";\"-153,40\";\"DE39DBV00000002177    \";\"1100119479210010      \";\"\";");
+            statement.Add("\"22.07.2017\";\"21.07.2017\";\"Lastschrift\";\"DB Vertrieb GmbH\";\"Fahrschein 1234567890\";\"DE1234567890\";\"PBNKDEFFXXX\";\"-153,40\";\"DE1234567890    \";\"1234567890      \";\"\";");
 
             var target = new DkbGiroStatementConverter();
             target.LoadStatements(statement.AsEnumerable());
@@ -118,10 +118,25 @@ namespace YnabCsvConverter.Converter.Test
         public void ConfidenceIsHUndred()
         {
             var statement = new List<string>();
-            statement.Add("\"22.07.2017\";\"21.07.2017\";\"Lastschrift\";\"DB Vertrieb GmbH\";\"Fahrschein Q64P6BFahrschein 2B1EUH\";\"DE02100100100152517108\";\"PBNKDEFFXXX\";\"-153,40\";\"DE39DBV00000002177    \";\"1100119479210010      \";\"\";");
+            statement.Add("\"22.07.2017\";\"21.07.2017\";\"Lastschrift\";\"DB Vertrieb GmbH\";\"Fahrschein 1234567890\";\"DE1234567890\";\"PBNKDEFFXXX\";\"-153,40\";\"DE1234567890\";\"1234567890      \";\"\";");
             var target = new DkbGiroStatementConverter();
             target.LoadStatements(statement);
             Assert.Equal(100f, target.GetConfidence());
         }
+        
+
+        [Fact]
+        public void StatementHasComa()
+        {
+            var statement = new List<string>();
+            statement.Add("\"05.12.2017\";\"05.12.2017\";\"Lastschrift\";\"AMAZON EU S.A R.L., NIEDERLASSUNG DEUTSCHLAND\";\"15255252525 Amazon.de 15151515151\";\"DE1234567890\";\"TUBDDEDD\";\" -12,34\";\"DE1234567890    \";\"):r,uXizUsW7Rve: mzMnAvg2kd9Kn - \";\"\";");
+            var target = new DkbGiroStatementConverter();
+            target.LoadStatements(statement);
+            Assert.NotEmpty(target.GetConvertedStatements());
+            Assert.Equal("AMAZON EU S.A R.L. NIEDERLASSUNG DEUTSCHLAND", target.GetConvertedStatements().First().Payee);
+            Assert.Equal(12.34f,target.GetConvertedStatements().First().Outflow);
+
+        }
+
     }
 }
