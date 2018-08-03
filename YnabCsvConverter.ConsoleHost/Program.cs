@@ -15,19 +15,26 @@ namespace YnabCsvConverter.ConsoleHost
     {
         static void Main(string[] args)
         {
-            if (args.Length == 2 && File.Exists(args[0]) && !string.IsNullOrEmpty(args[1]))
+
+            if (args.Length <= 2 && args.Length > 0 && File.Exists(args[0]))
             {
                 var contentOfdkbStatement = File.ReadLines(args[0], Encoding.GetEncoding(0));
-                var converters = GetAllConverters();
-                IConverterSelector selector = new ConverterSelector(converters, contentOfdkbStatement);
-                PrintConfidenceLevels(selector.GetConfidence());
-                var converter = selector.GetConverterWithHighestConfidence();
-                var result = converter.GetConvertedStatements();
+                StatementConverter converter = SelectConverterWithHighestConfidence(contentOfdkbStatement);
 
                 var resultText = new List<string>() { YnabStatementLine.YnabHeader() };
 
+                var result = converter.GetConvertedStatements();
                 resultText.AddRange(result.ToStringList());
-                File.WriteAllLines(args[1], resultText, Encoding.UTF8);
+                var outputName = string.Empty;
+                if (args.Length == 2)
+                {
+                    outputName = args[1];
+                }
+                else
+                {
+                    outputName = $"{converter.NameOfStatement()}.csv"; 
+                }
+                File.WriteAllLines(outputName, resultText, Encoding.UTF8);
             }
             else
             {
@@ -50,6 +57,15 @@ namespace YnabCsvConverter.ConsoleHost
                 }
 
             }
+        }
+
+        private static StatementConverter SelectConverterWithHighestConfidence(IEnumerable<string> contentOfdkbStatement)
+        {
+            var converters = GetAllConverters();
+            IConverterSelector selector = new ConverterSelector(converters, contentOfdkbStatement);
+            PrintConfidenceLevels(selector.GetConfidence());
+            var converter = selector.GetConverterWithHighestConfidence();
+            return converter;
         }
 
         private static void PrintConfidenceLevels(IEnumerable<(StatementConverter, float)> confidenceMap)
