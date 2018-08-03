@@ -28,7 +28,6 @@ namespace YnabCsvConverter.ConsoleHost
 
                 resultText.AddRange(result.ToStringList());
                 File.WriteAllLines(args[1], resultText, Encoding.UTF8);
-                Console.ReadLine();
             }
             else
             {
@@ -49,7 +48,6 @@ namespace YnabCsvConverter.ConsoleHost
                 {
                     Console.WriteLine($"Der Dateiname der Ausgabedatei ist leer");
                 }
-                Console.Read();
 
             }
         }
