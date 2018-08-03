@@ -34,6 +34,14 @@ namespace YnabCsvConverter.ConsoleHost
 
             var result = converter.GetConvertedStatements();
             resultText.AddRange(result.ToStringList());
+            string outputName = ChooseOutputFileName(args, converter);
+            
+            Console.WriteLine($"Write output to file {outputName}");
+            File.WriteAllLines(outputName, resultText, Encoding.UTF8);
+        }
+
+        private static string ChooseOutputFileName(string[] args, StatementConverter converter)
+        {
             var outputName = string.Empty;
             if (args.Length == 2)
             {
@@ -41,10 +49,21 @@ namespace YnabCsvConverter.ConsoleHost
             }
             else
             {
-                outputName = $"{converter.NameOfStatement()}.csv";
+                outputName = converter.NameOfStatement();
             }
-            Console.WriteLine($"Write output to file {outputName}");
-            File.WriteAllLines(outputName, resultText, Encoding.UTF8);
+            outputName = EnsureCorrectFileEnding(outputName);
+
+            return outputName;
+        }
+
+        private static string EnsureCorrectFileEnding(string outputName)
+        {
+            if (!outputName.ToLower().EndsWith(".csv"))
+            {
+                outputName = $"{outputName}.csv";
+            }
+
+            return outputName;
         }
 
         private static void PrintUsage()
