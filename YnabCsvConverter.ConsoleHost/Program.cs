@@ -15,48 +15,44 @@ namespace YnabCsvConverter.ConsoleHost
     {
         static void Main(string[] args)
         {
-
-            if (args.Length <= 2 && args.Length > 0 && File.Exists(args[0]))
+            if (args.Length == 0 || args.Length > 2)
             {
-                var contentOfdkbStatement = File.ReadLines(args[0], Encoding.GetEncoding(0));
-                StatementConverter converter = SelectConverterWithHighestConfidence(contentOfdkbStatement);
+                PrintUsage();
+                return;
+            }
 
-                var resultText = new List<string>() { YnabStatementLine.YnabHeader() };
+            if (!File.Exists(args[0]))
+            {
+                Console.WriteLine($"Die angegebene input-Datei {args[0]} existiert nicht");
+                return;
+            }
 
-                var result = converter.GetConvertedStatements();
-                resultText.AddRange(result.ToStringList());
-                var outputName = string.Empty;
-                if (args.Length == 2)
-                {
-                    outputName = args[1];
-                }
-                else
-                {
-                    outputName = $"{converter.NameOfStatement()}.csv"; 
-                }
-                File.WriteAllLines(outputName, resultText, Encoding.UTF8);
+            var contentOfdkbStatement = File.ReadLines(args[0], Encoding.GetEncoding(0));
+            StatementConverter converter = SelectConverterWithHighestConfidence(contentOfdkbStatement);
+
+            var resultText = new List<string>() { YnabStatementLine.YnabHeader() };
+
+            var result = converter.GetConvertedStatements();
+            resultText.AddRange(result.ToStringList());
+            var outputName = string.Empty;
+            if (args.Length == 2)
+            {
+                outputName = args[1];
             }
             else
             {
-
-                Console.WriteLine("Probleme mit den Parametern");
-                Console.WriteLine("");
-                Console.WriteLine("");
-                Console.WriteLine("Usage: YnabConverter <Eingabe.csv> <Ausgabe.csv>");
-                if (args.Length != 2)
-                {
-                    Console.WriteLine($"Es darf nur ein Parameter angegeben werden. Es wurden {args.Length} übergeben.");
-                }
-                if (!File.Exists(args[0]))
-                {
-                    Console.WriteLine($"Die Datei {args[0]} existiert nicht");
-                }
-                if (string.IsNullOrEmpty(args[1]))
-                {
-                    Console.WriteLine($"Der Dateiname der Ausgabedatei ist leer");
-                }
-
+                outputName = $"{converter.NameOfStatement()}.csv";
             }
+            Console.WriteLine($"Write output to file {outputName}");
+            File.WriteAllLines(outputName, resultText, Encoding.UTF8);
+        }
+
+        private static void PrintUsage()
+        {
+            Console.WriteLine("Probleme mit den Parametern");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Usage: YnabConverter <Eingabe.csv> [<Ausgabe.csv>]");
         }
 
         private static StatementConverter SelectConverterWithHighestConfidence(IEnumerable<string> contentOfdkbStatement)
