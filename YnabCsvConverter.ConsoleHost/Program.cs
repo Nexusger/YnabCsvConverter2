@@ -27,8 +27,8 @@ namespace YnabCsvConverter.ConsoleHost
                 return;
             }
 
-            var contentOfdkbStatement = File.ReadLines(args[0], Encoding.GetEncoding(0));
-            StatementConverter converter = SelectConverterWithHighestConfidence(contentOfdkbStatement);
+            var contenOfStatement = File.ReadLines(args[0], Encoding.GetEncoding(0));
+            StatementConverter converter = SelectConverterWithHighestConfidence(contenOfStatement);
 
             var resultText = new List<string>() { YnabStatementLine.YnabHeader() };
 
