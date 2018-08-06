@@ -4,7 +4,7 @@ namespace YnabCsvConverter.Interface
 {
     public interface IConverterSelector
     {
-        IEnumerable<(StatementConverter, float)> GetConfidence();
+        IDictionary<StatementConverter, float> GetConfidence();
 
         StatementConverter GetConverterWithHighestConfidence();
     }

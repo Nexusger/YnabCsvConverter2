@@ -18,10 +18,14 @@ namespace YnabCsvConverter.Common
             FillConfidenceMap();
         }
         
-        public IEnumerable<(StatementConverter, float)> GetConfidence()
+        public IDictionary<StatementConverter, float> GetConfidence()
         {
-            return ConfidenceMap.Select(t => (t.Key, t.Value));
-            
+            var result = new Dictionary<StatementConverter, float>();
+            foreach (var item in ConfidenceMap)
+            {
+                result.Add(item.Key, item.Value);
+            }
+            return result;            
         }
 
         public StatementConverter GetConverterWithHighestConfidence()

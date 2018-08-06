@@ -83,12 +83,12 @@ namespace YnabCsvConverter.ConsoleHost
             return converter;
         }
 
-        private static void PrintConfidenceLevels(IEnumerable<(StatementConverter, float)> confidenceMap)
+        private static void PrintConfidenceLevels(IDictionary<StatementConverter, float> confidenceMap)
         {
             Console.WriteLine("----------Confidence----------");
-            foreach (var item in confidenceMap.OrderByDescending(t => t.Item2))
+            foreach (var item in confidenceMap.OrderByDescending(t => t.Value))
             {
-                Console.WriteLine($"{item.Item2,6:##0.00}.......... {item.Item1.NameOfStatement()}");
+                Console.WriteLine($"{item.Value,6:##0.00}.......... {item.Key.NameOfStatement()}");
             }
             Console.WriteLine("----------Confidence----------");
         }
