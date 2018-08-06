@@ -36,7 +36,7 @@ namespace YnabCsvConverter.ConsoleHost
             resultText.AddRange(result.ToStringList());
             string outputName = ChooseOutputFileName(args, converter);
             
-            Console.WriteLine($"Write output to file {outputName}");
+            Console.WriteLine($"Write output to file \"{outputName}\"");
             File.WriteAllLines(outputName, resultText, Encoding.UTF8);
         }
 
