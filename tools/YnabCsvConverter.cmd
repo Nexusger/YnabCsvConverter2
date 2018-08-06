@@ -1,0 +1,1 @@
+dotnet YnabCsvConverter.ConsoleHost.dll %1 %2 %3 %4

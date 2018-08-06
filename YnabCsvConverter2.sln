@@ -2,19 +2,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.ConsoleHost", "YnabCsvConverter.ConsoleHost\YnabCsvConverter.ConsoleHost.csproj", "{DB2ABC23-640D-4902-B58D-7124CD42628E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.ConsoleHost", "src\YnabCsvConverter.ConsoleHost\YnabCsvConverter.ConsoleHost.csproj", "{DB2ABC23-640D-4902-B58D-7124CD42628E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Interface", "YnabCsvConverter.Interface\YnabCsvConverter.Interface.csproj", "{ADB56EB7-F348-4A1B-B0F5-DD410A317613}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Interface", "src\YnabCsvConverter.Interface\YnabCsvConverter.Interface.csproj", "{ADB56EB7-F348-4A1B-B0F5-DD410A317613}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Converter.DKB", "YnabCsvConverter.Converter.DKB\YnabCsvConverter.Converter.DKB.csproj", "{86D0C552-4D5B-4944-BBFA-760711CDED98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Converter.DKB", "src\YnabCsvConverter.Converter.DKB\YnabCsvConverter.Converter.DKB.csproj", "{86D0C552-4D5B-4944-BBFA-760711CDED98}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Converter.Test", "YnabCsvConverter.Converter.DKB.Test\YnabCsvConverter.Converter.Test.csproj", "{3B8FAF6F-3E3F-4B13-90A7-C2B91D44D9E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Converter.Test", "test\YnabCsvConverter.Converter.DKB.Test\YnabCsvConverter.Converter.Test.csproj", "{3B8FAF6F-3E3F-4B13-90A7-C2B91D44D9E3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Interface.Test", "YnabCsvConverter.Interface.Test\YnabCsvConverter.Interface.Test.csproj", "{344F3B86-2633-45C7-B848-0ED1F5121841}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Interface.Test", "test\YnabCsvConverter.Interface.Test\YnabCsvConverter.Interface.Test.csproj", "{344F3B86-2633-45C7-B848-0ED1F5121841}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benchmark", "Benchmark\Benchmark.csproj", "{BB92FB6E-96D6-4DEB-865E-7BD3753631F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benchmark", "test\Benchmark\Benchmark.csproj", "{BB92FB6E-96D6-4DEB-865E-7BD3753631F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Converter.Hypovereinsbank", "YnabCsvConverter.Converter.Hypovereinsbank\YnabCsvConverter.Converter.Hypovereinsbank.csproj", "{1BE02A07-F064-4A11-8D35-22F57B3CE4D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabCsvConverter.Converter.Hypovereinsbank", "src\YnabCsvConverter.Converter.Hypovereinsbank\YnabCsvConverter.Converter.Hypovereinsbank.csproj", "{1BE02A07-F064-4A11-8D35-22F57B3CE4D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00_Converter", "00_Converter", "{A5E20526-05EB-48DF-881D-D73561409ED1}"
 EndProject
@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Core", "01_Core", "{E357
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Client", "02_Client", "{D9458B12-9702-40BF-94AE-9A6317D9855A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabCsvConverter.BusinessLogic", "YnabCsvConverter.BusinessLogic\YnabCsvConverter.BusinessLogic.csproj", "{D2B99DA2-D444-438E-8867-1589F4BCA4D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabCsvConverter.BusinessLogic", "src\YnabCsvConverter.BusinessLogic\YnabCsvConverter.BusinessLogic.csproj", "{D2B99DA2-D444-438E-8867-1589F4BCA4D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
