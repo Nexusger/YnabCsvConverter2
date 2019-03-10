@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\YnabCsvConverter.Converter.DKB\YnabCsvConverter.Converter.DKB.csproj" />
     <ProjectReference Include="..\YnabCsvConverter.Converter.Hypovereinsbank\YnabCsvConverter.Converter.Hypovereinsbank.csproj" />
+    <ProjectReference Include="..\YnabCsvConverter.Converter.N26\YnabCsvConverter.Converter.N26.csproj" />
     <ProjectReference Include="..\YnabCsvConverter.Interface\YnabCsvConverter.Interface.csproj" />
   </ItemGroup>
 

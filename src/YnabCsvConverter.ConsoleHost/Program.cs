@@ -7,7 +7,9 @@ using YnabCsvConverter.Interface;
 using System;
 using YnabCsvConverter.Common;
 using System.Linq;
-using System.Reflection;
+using YnabCsvConverter.Converter.N26;
+using YnabCsvConverter.Converter.Hypovereinsbank;
+using CsvHelper;
 
 namespace YnabCsvConverter.ConsoleHost
 {
@@ -30,7 +32,7 @@ namespace YnabCsvConverter.ConsoleHost
             var contenOfStatement = File.ReadLines(args[0], Encoding.GetEncoding(0));
             StatementConverter converter = SelectConverterWithHighestConfidence(contenOfStatement);
 
-            var resultText = new List<string>() { YnabStatementLine.YnabHeader() };
+        var resultText = new List<string>() { YnabStatementLine.YnabHeader() };
 
             var result = converter.GetConvertedStatements();
             resultText.AddRange(result.ToStringList());
@@ -99,6 +101,8 @@ namespace YnabCsvConverter.ConsoleHost
             {
                 new DkbCreditcardStatementConverter(),
                 new DkbGiroStatementConverter(),
+                new N26StatementConverter(),
+                new HypoGiroStatementConverter(),
             };
         }
     }
