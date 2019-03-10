@@ -59,7 +59,6 @@ namespace YnabCsvConverter.Converter.Test
             Assert.NotNull(target);
             Assert.Equal(statement, target.InputStatements);
             var actual = target.GetConvertedStatements().FirstOrDefault();
-            Assert.NotNull(actual);
             Assert.Equal("", actual.Category);
             Assert.Equal(DateTime.Parse("21.07.2017"), actual.Date);
             Assert.InRange(actual.Outflow, 153.3999, 153.4001);

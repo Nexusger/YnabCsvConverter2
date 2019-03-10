@@ -45,11 +45,11 @@ namespace YnabCsvConverter.Common
             if (ConfidenceMap == null)
             {
                 ConfidenceMap = new ConcurrentDictionary<StatementConverter, float>();
-                Parallel.ForEach(Converters, (converter) =>
+                foreach (var converter in Converters)
                 {
                     converter.LoadStatements(Statements);
                     ConfidenceMap.TryAdd(converter, converter.GetConfidence());
-                });
+                }
             }
         }
     }

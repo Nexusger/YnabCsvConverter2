@@ -25,7 +25,7 @@ namespace YnabCsvConverter.Interface.Model
         {
             var outflow = Outflow.ToString("F2", CultureInfo.InvariantCulture);
             var inflow = Inflow.ToString("F2", CultureInfo.InvariantCulture);
-            return $"{Date.ToString("dd'/'MM'/'yyyy")},{Payee},\"{Category}\",\"{Memo.Replace(',',' ')}\",{outflow},{inflow}";
+            return $"{Date.ToString("dd'/'MM'/'yyyy")},\"{Payee}\",\"{Category}\",\"{Memo.Replace(',',' ')}\",{outflow},{inflow}";
         }
         public static string YnabHeader()
         {

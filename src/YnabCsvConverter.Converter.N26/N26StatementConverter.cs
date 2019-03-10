@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using YnabCsvConverter.Interface;
 using YnabCsvConverter.Interface.Model;
 
@@ -15,20 +16,20 @@ namespace YnabCsvConverter.Converter.N26
         {
             //"Datum","Empfänger","Kontonummer","Transaktionstyp","Verwendungszweck","Kategorie","Betrag (EUR)","Betrag (Fremdwährung)","Fremdwährung","Wechselkurs"
             //"2018-08-27","Jan Fuchs","DE15100110012622977805","Gutschrift","Ausflug","Gutschriften","20.0","","",""
-            var content = singleLine.Replace("\"", "").Split(',');
+            var content = singleLine.Replace("\",\"", "³").Replace("\"", "").Split('³');
             var date = DateTime.Parse(content[0]);
             var payee = content[1];
             var memo = content[4];
             var inflow = 0f;
             var outflow = 0f;
-            var value = float.Parse(content[6]);
+            var value = float.Parse(content[6], CultureInfo.InvariantCulture);
             if (value > 0)
             {
-                inflow = value;
+                inflow = Math.Abs(value);
             }
             else
             {
-                outflow = value;
+                outflow = Math.Abs(value);
             }
             return new YnabStatementLine(date, payee, "", memo, inflow, outflow);
         }
@@ -39,11 +40,12 @@ namespace YnabCsvConverter.Converter.N26
             {
                 return false;
             }
-            if (singleStatementLine.Split(',').Length != 10)
+            var t = singleStatementLine.Replace("\",\"","³").Split('³');
+            if (t.Length != 10)
             {
                 return false;
             }
-            if (!singleStatementLine.StartsWith("\"Datum\""))
+            if (singleStatementLine.Contains("Datum"))
             {
                 return false;
             }

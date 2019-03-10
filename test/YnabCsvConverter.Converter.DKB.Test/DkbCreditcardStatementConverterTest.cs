@@ -45,10 +45,9 @@ namespace YnabCsvConverter.Converter.Test
             Assert.NotNull(target);
             Assert.Equal(statement, target.InputStatements);
             var actual = target.GetConvertedStatements().FirstOrDefault();
-            Assert.NotNull(actual);
             Assert.Equal("",actual.Category);
             Assert.Equal(DateTime.Parse("21.07.2017"), actual.Date);
-            Assert.Equal(actual.Inflow,12.34f );
+            Assert.Equal(12.34f ,actual.Inflow);
             Assert.Equal("Converted! Original: HabenzinsenZ 123456789 T 029   0000", actual.Memo);
             Assert.Equal(0.0, actual.Outflow);
             Assert.Equal("", actual.Payee);
