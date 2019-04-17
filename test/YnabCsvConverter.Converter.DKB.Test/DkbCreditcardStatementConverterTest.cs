@@ -40,7 +40,6 @@ namespace YnabCsvConverter.Converter.Test
         {
             var statement = new List<string>();
             statement.Add("\"Ja\";\"22.07.2017\";\"21.07.2017\";\"HabenzinsenZ 123456789 T 029   0000\";\"12,34\";\"\";");
-            var date = DateTime.Parse("20.07.2017");
             var target = new DkbCreditcardStatementConverter();
             target.LoadStatements(statement.AsEnumerable());
             Assert.NotNull(target);
