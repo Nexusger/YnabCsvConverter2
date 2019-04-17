@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using YnabCsvConverter.Converter.DKB;
+using YnabCsvConverter.Interface;
 
 namespace YnabCsvConverter.Converter.Test
 {
@@ -62,7 +63,7 @@ namespace YnabCsvConverter.Converter.Test
             Assert.Equal("", actual.Category);
             Assert.Equal(DateTime.Parse("21.07.2017"), actual.Date);
             Assert.InRange(actual.Outflow, 153.3999, 153.4001);
-            Assert.Equal("Converted! Lastschrift From DB Vertrieb GmbH Fahrschein 1234567890", actual.Memo);
+            Assert.Equal($"{StatementConverter.CONVERTERMARKER} Fahrschein 1234567890", actual.Memo);
             Assert.Equal(0.0, actual.Inflow);
             Assert.Equal("DB Vertrieb GmbH", actual.Payee);
         }

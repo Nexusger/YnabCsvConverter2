@@ -6,7 +6,7 @@ using YnabCsvConverter.Interface.Model;
 namespace YnabCsvConverter.Interface
 {
     public abstract class StatementConverter : IStatementConverter, IStatementConfidenceCalculator
-    {
+    { public const string CONVERTERMARKER = "Converted!";
         public IEnumerable<string> InputStatements { get; private set; }
         public IList<YnabStatementLine> ConvertedStatements { get; private set; } = new List<YnabStatementLine>();
         protected float Confidence;

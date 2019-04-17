@@ -19,7 +19,7 @@ namespace YnabCsvConverter.Converter.N26
             var content = singleLine.Replace("\",\"", "³").Replace("\"", "").Split('³');
             var date = DateTime.Parse(content[0]);
             var payee = content[1];
-            var memo = content[4];
+            var memo = $"{CONVERTERMARKER} {content[4]}";
             var inflow = 0f;
             var outflow = 0f;
             var value = float.Parse(content[6], CultureInfo.InvariantCulture);

@@ -15,8 +15,7 @@ namespace YnabCsvConverter.Converter.DKB
 
         protected override YnabStatementLine ConvertToValidYnabStatement(string line)
         {
-            //"Nein";"02.01.2017";"30.12.2016";"KARAKA CAFEWELLINGTON";"-7,33";"-11,00 NZD";
-            var fields = line.Split(';').Select(t => t.RemoveBackTicks()).ToArray();
+            var fields = line.SplitByBackticks().ToArray();
             if (!DateTime.TryParse(fields[2], out var date))
             {
                 Debug.WriteLine("Problem in creating ynabstatement");

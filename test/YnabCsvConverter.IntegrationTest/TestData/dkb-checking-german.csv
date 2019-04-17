@@ -1,0 +1,9 @@
+"Kontonummer:";"DE51120300001007317249 / Girokonto";
+
+"Von:";"05.01.2019";
+"Bis:";"06.03.2019";
+"Kontostand vom 06.03.2019:";"123,45 EUR";
+
+"Buchungstag";"Wertstellung";"Buchungstext";"Auftraggeber / Begünstigter";"Verwendungszweck";"Kontonummer";"BLZ";"Betrag (EUR)";"Gläubiger-ID";"Mandatsreferenz";"Kundenreferenz";
+"24.09.2018";"24.09.2018";"Kartenzahlung/-abrechnung";"CsvConverter äüöß";"Positive üäöß .,;";"";"";"123,45";"";"";"";
+"10.10.2018";"10.10.2018";"Kartenzahlung/-abrechnung";"CsvConverter äüöß";"Negative üäöß .,;";"";"";"-123,45";"";"";"";

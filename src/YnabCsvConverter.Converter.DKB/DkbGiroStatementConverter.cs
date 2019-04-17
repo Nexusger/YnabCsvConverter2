@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using YnabCsvConverter.Interface;
@@ -19,7 +20,8 @@ namespace YnabCsvConverter.Converter.DKB
             if (line.StartsWith("\"Buchungstag")) return false;
             if (!line.Contains(';')) return false;
 
-            var fields = line.Split(';').Select(t => t.RemoveBackTicks()).ToArray();
+            var u = line.Split(';');
+            var fields = u.Select(t => t.RemoveBackTicks()).ToArray();
             if (fields.Length <= 8) return false;
             if (fields[2] == "Abschluss") return false;
 
@@ -28,8 +30,7 @@ namespace YnabCsvConverter.Converter.DKB
 
         protected override YnabStatementLine ConvertToValidYnabStatement(string line)
         {
-            //"29.09.2017";"29.09.2017";"Lastschrift";"PayPal Europe S.a.r.l. et Cie S.C.A";"PP.1044.PP . SPOTIFY, Ihr Einkauf bei SPOTIFY";"DE88500700100175526303";"DEUTDEFFXXX";"-4,99";"LU96ZZZ0000000000000000058                       ";"4G2J224RTX66J         ";"";
-            var fields = line.Split(';').Select(t => t.RemoveBackTicks()).ToArray();
+            var fields = line.SplitByBackticks().ToArray();
             if (!DateTime.TryParse(fields[1], out var date))
             {
                 Debug.WriteLine("Problem in creating ynabstatement");
@@ -37,7 +38,7 @@ namespace YnabCsvConverter.Converter.DKB
             var payee = fields[3].Replace(",","");
             var category = "";
 
-            var memo = $"Converted! {fields[2]} From {fields[3]} {fields[4]}";
+            var memo = $"{CONVERTERMARKER} {fields[4]}";
 
             var inflow = 0f;
             var outflow = 0f;
