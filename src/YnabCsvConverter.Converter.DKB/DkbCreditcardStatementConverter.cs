@@ -34,7 +34,8 @@ namespace YnabCsvConverter.Converter.DKB
 
             var inflow = 0f;
             var outflow = 0f;
-            if (!float.TryParse(fields[4], out float value))
+
+            if (!float.TryParse(fields[4],NumberStyles.Float,culture, out float value))
             {
                 Debug.WriteLine($"Error converting Value {fields[4]}");
             }
