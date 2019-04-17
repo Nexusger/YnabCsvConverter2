@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using YnabCsvConverter.Interface;
 using YnabCsvConverter.Interface.Model;
 
@@ -15,8 +16,9 @@ namespace YnabCsvConverter.Converter.N26
         protected override YnabStatementLine ConvertToValidYnabStatement(string singleLine)
         {
             //"Datum","Empfänger","Kontonummer","Transaktionstyp","Verwendungszweck","Kategorie","Betrag (EUR)","Betrag (Fremdwährung)","Fremdwährung","Wechselkurs"
-            //"2018-08-27","Jan Fuchs","DE15100110012622977805","Gutschrift","Ausflug","Gutschriften","20.0","","",""
-            var content = singleLine.Replace("\",\"", "³").Replace("\"", "").Split('³');
+
+            var content = singleLine.SplitByBackticks().ToArray();
+
             var date = DateTime.Parse(content[0]);
             var payee = content[1];
             var memo = $"{CONVERTERMARKER} {content[4]}";

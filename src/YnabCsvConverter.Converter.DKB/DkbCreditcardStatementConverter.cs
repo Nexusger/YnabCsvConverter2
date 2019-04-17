@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using YnabCsvConverter.Interface;
 using YnabCsvConverter.Interface.Model;
@@ -16,7 +17,8 @@ namespace YnabCsvConverter.Converter.DKB
         protected override YnabStatementLine ConvertToValidYnabStatement(string line)
         {
             var fields = line.SplitByBackticks().ToArray();
-            if (!DateTime.TryParse(fields[2], out var date))
+            var culture = CultureInfo.CreateSpecificCulture("de-DE");
+            if (!DateTime.TryParse(fields[2],culture,DateTimeStyles.None, out var date))
             {
                 Debug.WriteLine("Problem in creating ynabstatement");
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using YnabCsvConverter.Interface;
 using YnabCsvConverter.Interface.Model;
@@ -15,10 +16,9 @@ namespace YnabCsvConverter.Converter.Hypovereinsbank
 
         protected override YnabStatementLine ConvertToValidYnabStatement(string singleLine)
         {
-            //Kontonummer;Buchungsdatum;Valuta;Empfaenger 1;Empfaenger 2;Verwendungszweck;Betrag;Waehrung
-            //90935230;15.09.2017;15.09.2017;;;SEPA-GUTSCHRIFT flightright GmbH PAYOUTID 456578 IHRE ENTSCH AEDIGUNG CASE 388486;345,30;EUR
             var fields = singleLine.Split(';').Select(t => t.RemoveBackTicks()).ToArray();
-            if (!DateTime.TryParse(fields[2], out var date))
+            var culture = CultureInfo.CreateSpecificCulture("de-DE");
+            if (!DateTime.TryParse(fields[2], culture, DateTimeStyles.None,out var date))
             {
                 Debug.WriteLine("Problem in creating ynabstatement");
             }
