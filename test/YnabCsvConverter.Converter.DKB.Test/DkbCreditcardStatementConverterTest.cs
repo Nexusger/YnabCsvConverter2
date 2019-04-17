@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Xunit;
 using YnabCsvConverter.Converter.DKB;
@@ -46,7 +47,8 @@ namespace YnabCsvConverter.Converter.Test
             Assert.Equal(statement, target.InputStatements);
             var actual = target.GetConvertedStatements().FirstOrDefault();
             Assert.Equal("",actual.Category);
-            Assert.Equal(DateTime.Parse("21.07.2017"), actual.Date);
+            var culture = CultureInfo.CreateSpecificCulture("de-DE");
+            Assert.Equal(DateTime.Parse("21.07.2017", culture), actual.Date);
             Assert.Equal(12.34f ,actual.Inflow);
             Assert.Equal("Converted! Original: HabenzinsenZ 123456789 T 029   0000", actual.Memo);
             Assert.Equal(0.0, actual.Outflow);
@@ -64,9 +66,10 @@ namespace YnabCsvConverter.Converter.Test
             Assert.Equal(statement, target.InputStatements);
             var actual = target.GetConvertedStatements().Count();
             Assert.Equal(1,actual);
-            actual = target.GetConvertedStatements(DateTime.Parse("20.07.2017")).Count();
+            var culture = CultureInfo.CreateSpecificCulture("de-DE");
+            actual = target.GetConvertedStatements(DateTime.Parse("20.07.2017", culture)).Count();
             Assert.Equal(1, actual);
-            actual = target.GetConvertedStatements(DateTime.Parse("21.07.2017")).Count();
+            actual = target.GetConvertedStatements(DateTime.Parse("21.07.2017", culture)).Count();
             Assert.Equal(0, actual);
         }
         [Fact]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Xunit;
 using YnabCsvConverter.Converter.DKB;
@@ -54,14 +55,15 @@ namespace YnabCsvConverter.Converter.Test
         {
             var statement = new List<string>();
             statement.Add("\"22.07.2017\";\"21.07.2017\";\"Lastschrift\";\"DB Vertrieb GmbH\";\"Fahrschein 1234567890\";\"DE1234567890\";\"PBNKDEFFXXX\";\"-153,40\";\"DE1234567890    \";\"1234567890      \";\"\";");
-            var date = DateTime.Parse("20.07.2017");
+
             var target = new DkbGiroStatementConverter();
             target.LoadStatements(statement.AsEnumerable());
             Assert.NotNull(target);
             Assert.Equal(statement, target.InputStatements);
             var actual = target.GetConvertedStatements().FirstOrDefault();
             Assert.Equal("", actual.Category);
-            Assert.Equal(DateTime.Parse("21.07.2017"), actual.Date);
+            var culture = CultureInfo.CreateSpecificCulture("de-DE");
+            Assert.Equal(DateTime.Parse("21.07.2017", culture), actual.Date);
             Assert.InRange(actual.Outflow, 153.3999, 153.4001);
             Assert.Equal($"{StatementConverter.CONVERTERMARKER} Fahrschein 1234567890", actual.Memo);
             Assert.Equal(0.0, actual.Inflow);
@@ -80,9 +82,10 @@ namespace YnabCsvConverter.Converter.Test
             Assert.Equal(statement, target.InputStatements);
             var actual = target.GetConvertedStatements().Count();
             Assert.Equal(1,actual);
-            actual = target.GetConvertedStatements(DateTime.Parse("20.07.2017")).Count();
+            var culture = CultureInfo.CreateSpecificCulture("de-DE");
+            actual = target.GetConvertedStatements(DateTime.Parse("20.07.2017",culture)).Count();
             Assert.Equal(1, actual);
-            actual = target.GetConvertedStatements(DateTime.Parse("21.07.2017")).Count();
+            actual = target.GetConvertedStatements(DateTime.Parse("21.07.2017",culture)).Count();
             Assert.Equal(0, actual);
         }
         [Fact]
